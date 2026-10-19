@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Интерактивная кривая жизненного цикла организации по Ицхаку Адизесу: 10 стадий, коды PAEI, признаки, патологии и роли в команде.">
+<meta name="description" content="Методология Ицхака Адизеса: интерактивный жизненный цикл организации, роли PAEI и модель «Существующее, должное, желаемое».">
 <style>*,*::before,*::after{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Цикл Адизеса</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -70,6 +70,11 @@ ol.cond{margin:0;padding-left:22px;max-width:68ch}
 ol.cond li+li{margin-top:8px}
 ol.cond b{font-weight:500}
 .plain{max-width:68ch;display:flex;flex-direction:column;gap:8px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabb{flex:0 0 auto;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 14px;font:inherit;font-size:15px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tabb[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--ring);font-weight:500}
+.tabb:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+.tab{display:flex;flex-direction:column;gap:18px}
 .vz{cursor:pointer}.vz:focus{outline:none}.vz:focus-visible circle{stroke:var(--ring);stroke-width:3}
 .vrow{display:flex;gap:10px;font-size:14px;line-height:1.6}
 .vrow .lbl{min-width:110px;padding-top:2px}
@@ -79,10 +84,13 @@ ol.cond b{font-weight:500}
 </head>
 <body>
 <div class="wrap">
-  <div>
-    <h1>Жизненный цикл организации по Адизесу</h1>
-    <p class="sub">Нажмите на стадию на кривой: ниже откроется её теория, признаки, нормальные проблемы и патологии, что делать и кто нужен в команде.</p>
+  <h1>Методология Адизеса</h1>
+  <div class="tabs" role="tablist" aria-label="Разделы">
+    <button class="tabb" role="tab" id="tb-cycle" aria-controls="tab-cycle" aria-selected="true">Жизненный цикл</button>
+    <button class="tabb" role="tab" id="tb-isw" aria-controls="tab-isw" aria-selected="false">Существующее · Должное · Желаемое</button>
   </div>
+  <section class="tab" id="tab-cycle" role="tabpanel" aria-labelledby="tb-cycle">
+  <p class="sub">Нажмите на стадию на кривой: ниже откроется её теория, признаки, нормальные проблемы и патологии, что делать и кто нужен в команде.</p>
   <div class="chart">
     <svg id="svg" viewBox="0 0 680 440" width="100%" style="min-width:560px" role="img" aria-label="Кривая жизненного цикла из десяти стадий">
       <line x1="60" y1="420" x2="636" y2="420" stroke="var(--muted)" stroke-width="1"/>
@@ -153,7 +161,9 @@ ol.cond b{font-weight:500}
     <li><b>Правильное принятие решений.</b> Решение принято, только когда команда ответила на четыре вопроса: что делаем (P), как (A), когда (E) и кто выполняет (I). Это дольше, чем решать единолично, зато внедрение идёт быстрее.</li>
   </ol>
 
-  <h2>Существующее, должное, желаемое</h2>
+  </section>
+
+  <section class="tab" id="tab-isw" role="tabpanel" aria-labelledby="tb-isw" hidden>
   <div class="plain">
     <p>Любую ситуацию, решение или жизнь можно оценить тремя вопросами: как обстоят дела (is), как должно быть (should) и как хочется (want). Зона, где все три совпадают, — счастье. Каждое совпадение только двух кругов даёт своё характерное искажение. Нажмите на точку в любой зоне.</p>
   </div>
@@ -178,9 +188,66 @@ ol.cond b{font-weight:500}
     <div class="vrow"><div class="lbl">В компании</div><div id="vzc"></div></div>
     <div class="vrow"><div class="lbl">Что делать</div><div id="vzd"></div></div>
   </div>
-  <div class="plain">
-    <p>Практический вывод: в обсуждении нельзя смешивать три вопроса. Когда один говорит, «как есть», другой — «как надо», а третий — «как хочется», спор бесконечен. На диагностических сессиях Адизеса сначала фиксируют существующее, потом согласуют должное и только потом учитывают желаемое.</p>
+  <h2>Три круга</h2>
+  <div class="roles">
+    <div class="role"><div class="rh"><span class="letter" style="background:var(--grow-bg);color:var(--grow-fg)">is</span><span class="rn">Существующее</span></div>
+      <div class="q">Вопрос: «Как на самом деле?»</div>
+      <div>Факты, цифры, реальное поведение людей и рынка. Не оценка и не план, а честное описание текущего положения.</div>
+      <div class="ex">Типичные слова: «сейчас», «по факту», «на самом деле», «данные показывают».</div></div>
+    <div class="role"><div class="rh"><span class="letter" style="background:var(--grow-bg);color:var(--ring)">sh</span><span class="rn">Должное</span></div>
+      <div class="q">Вопрос: «Как правильно?»</div>
+      <div>Нормы, ценности, правила, обязательства и требования среды: закон, клиенты, этика, здравый смысл.</div>
+      <div class="ex">Типичные слова: «должны», «надо», «положено», «так правильно».</div></div>
+    <div class="role"><div class="rh"><span class="letter" style="background:var(--age-bg);color:var(--age-fg)">w</span><span class="rn">Желаемое</span></div>
+      <div class="q">Вопрос: «Чего мы хотим?»</div>
+      <div>Цели, мечты, амбиции и личные интересы. Источник энергии и мотивации, но без проверки реальностью легко становится фантазией.</div>
+      <div class="ex">Типичные слова: «хотелось бы», «мечтаем», «было бы здорово», «я хочу».</div></div>
   </div>
+
+  <h2>Почему круги расходятся</h2>
+  <div class="plain">
+    <p>По Адизесу, всё вокруг постоянно меняется, и изменения разводят круги в разные стороны. Рынок меняет то, что есть. Люди и обстоятельства меняют то, чего хочется. Нормы и ожидания меняют представление о должном. Части системы меняются с разной скоростью, поэтому совпадение трёх кругов никогда не бывает постоянным.</p>
+    <p>Каждое расхождение ощущается как проблема: стресс у человека, конфликт в команде, неэффективность в компании. Поэтому счастье здесь понимается не как разовое достижение, а как процесс: круги снова и снова приходится сводить вместе. Это та же логика, что и в остальной методологии: изменения порождают проблемы, а лечение — интеграция.</p>
+  </div>
+
+  <h2>Главная ошибка: смешивать круги</h2>
+  <div class="plain">
+    <p>Самые долгие и бесплодные споры возникают, когда участники незаметно говорят о разных кругах. Один описывает реальность, другой — норму, третий — желание, и каждый считает, что остальные «не понимают». Типичные подмены:</p>
+  </div>
+  <div class="grid">
+    <div class="sg"><b style="color:var(--age)">!</b><span><b>Должное выдают за существующее.</b> «У нас клиентоориентированная компания», хотя жалобы растут. Это прямая дорога к отрицанию реальности.</span></div>
+    <div class="sg"><b style="color:var(--age)">!</b><span><b>Желаемое выдают за должное.</b> «Мы обязаны выйти на новый рынок», хотя это просто амбиция руководителя. Обсуждение превращается в давление.</span></div>
+    <div class="sg"><b style="color:var(--age)">!</b><span><b>Существующее выдают за должное.</b> «Так всегда было, значит, так и надо». Инерция маскируется под норму.</span></div>
+    <div class="sg"><b style="color:var(--age)">!</b><span><b>Желаемое выдают за существующее.</b> Планы и прогнозы подают как факты, отчёты подгоняют под ожидания.</span></div>
+  </div>
+
+  <h2>Как принимать решения</h2>
+  <div class="plain">
+    <p>Хорошее решение опирается на все три круга. Решение только на желаемом — авантюра, только на должном — догма, только на существующем — инерция. Чтобы разговор не путался, обсуждение ведут по шагам, по одному кругу за раз:</p>
+  </div>
+  <ol class="cond">
+    <li><b>Существующее.</b> Сначала договориться о фактах: где мы сейчас. Никаких оценок и предложений, пока картина не согласована.</li>
+    <li><b>Желаемое.</b> Затем — куда хотим прийти: цель и видение. Здесь E получает слово, и важно не отсекать идеи слишком рано.</li>
+    <li><b>Должное.</b> В конце — что правильно и реалистично сделать с учётом ограничений, ценностей и обязательств. Это превращает желание в план.</li>
+  </ol>
+  <div class="plain">
+    <p>Простой приём для совещаний: когда спор затягивается, спросить «мы сейчас обсуждаем, как есть, как надо или как хотим?». Часто этого достаточно, чтобы конфликт стал конструктивным.</p>
+  </div>
+
+  <h2>Связь с PAEI и жизненным циклом</h2>
+  <div class="plain">
+    <p>Круги удобно соотносить с ролями. Производителю P ближе существующее: факты, результат, «что сделано». Администратору A — должное: правила, порядок, «как положено». Предпринимателю E — желаемое: видение и «почему бы и нет?». Интегратор I помогает свести круги в разговоре, чтобы люди с разными фокусами услышали друг друга. Поэтому комплементарная команда видит все три круга, а однородная систематически теряет один из них.</p>
+    <p>На кривой жизненного цикла видно, какой круг доминирует. В Выхаживании живут желаемым, в Младенчестве — существующим, в Давай-давай желаемое подавляет должное, в Юности должное сталкивается с желаемым. На стадиях старения должное отрывается от существующего, и компания уходит в отрицание реальности.</p>
+  </div>
+
+  <h2>Упражнение для себя или команды</h2>
+  <ol class="cond">
+    <li>Выберите одну сферу: работу, проект, отношения с клиентом, семью или здоровье.</li>
+    <li>Разделите лист на три колонки: «Как есть», «Как должно быть», «Как я хочу». Заполняйте их отдельно и не смешивайте.</li>
+    <li>Найдите, где колонки совпадают, а где расходятся, и отметьте, в какой зоне диаграммы вы сейчас.</li>
+    <li>Для каждого расхождения решите, какой круг двигать: менять реальность, пересматривать норму или честно отказаться от желания.</li>
+  </ol>
+  </section>
 
   <p class="src">Основано на работах Ицхака Адизеса «Управление жизненным циклом корпораций», «Адизес для лидеров» и «Методология Адизеса. Реальный опыт внедрения» (МИФ, 2015).</p>
 </div>
@@ -321,6 +388,16 @@ function vsel(k){const z=VZ[k],r=document.getElementById('vring');r.setAttribute
   document.getElementById('vzn').textContent=z[2];document.getElementById('vzf').textContent=z[3];
   document.getElementById('vzl').textContent=z[4];document.getElementById('vzc').textContent=z[5];document.getElementById('vzd').textContent=z[6];}
 vsel(0);
+const TABS={cycle:'tab-cycle',isw:'tab-isw'};
+function showTab(key){
+  Object.entries(TABS).forEach(([k,id])=>{
+    document.getElementById(id).hidden=k!==key;
+    document.getElementById('tb-'+k).setAttribute('aria-selected',k===key?'true':'false');
+  });
+  try{history.replaceState(null,'','#'+key);}catch(e){}
+}
+Object.keys(TABS).forEach(k=>document.getElementById('tb-'+k).addEventListener('click',()=>showTab(k)));
+const h=(location.hash||'').slice(1);if(TABS[h])showTab(h);
 </script>
 
 </body>
